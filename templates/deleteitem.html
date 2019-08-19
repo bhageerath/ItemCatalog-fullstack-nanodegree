@@ -1,0 +1,10 @@
+{% include "header.html" %}
+
+<h2>Are you sure you want to delete '{{item.name}}'?</h2>
+</br></br>
+<form action="#" method = 'post'>
+	<button type="submit" type="submit">Delete</button>
+</form>
+<a href = '{{url_for('showCatalog')}}' style="text-decoration: none">
+	<button>Cancel</button>
+</a>

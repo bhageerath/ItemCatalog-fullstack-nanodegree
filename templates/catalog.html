@@ -1,0 +1,50 @@
+{% include "header.html" %}
+
+<div style="width: 30%; float:left">
+   <h2>Categories</h2>
+   </br>
+   {% for category in categories %}
+        <a href="{{url_for('showCatalogWithSelectedCategory', category_id=category.id)}}" style="text-decoration: none">
+            {{category.name}}
+        </a>
+        </br></br>
+   {% endfor %}
+</div>
+
+<div style="width: 70%; float:right">
+  <!-- Show Add Item if user logged in -->
+  {% if showLogin %}
+    <a href="{{url_for('addItem')}}"><h3>Add Item</h3></a>
+  {% endif %}
+  <!-- show name of category with item count when category selected else shows latest items title-->
+  {% if category_id %}
+     {% for category in categories %}
+                {% if category.id == category_id %}
+                    <h2>{{category.name}} Items ({{items | length}} {% if items|length > 1 %} items {% else %} item {% endif %})<h2>
+                {% endif %}
+     {% endfor %}
+  {% else %}
+    <h2>Latest Items</h2>
+  {% endif %}
+  </br>
+    <!-- show name of each item and if latest items shown then category name also -->
+   {% if items|length > 0 %}
+        {% for item in items %}
+                    <a href="{{url_for('showItem', item_id = item.id)}}" style="text-decoration: none">
+                        {{item.name}}
+                    </a>
+                    {% if category_id == undefined %}
+                        {% for category in categories %}
+                            {% if category.id == item.category_id %}
+                                ({{category.name}})
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </br></br>
+        {% endfor %}
+    {% elif category_id %}
+        No Item available for selected Category.
+    {% else %}
+        No Latest item available.
+    {% endif %}
+</div>

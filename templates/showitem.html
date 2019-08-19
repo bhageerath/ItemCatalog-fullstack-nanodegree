@@ -1,0 +1,10 @@
+{% include "header.html" %}
+
+<h2>{{item.name}}<h2>
+</br>
+<i>{{item.description}}</i>
+</br></br>
+{% if editable %}
+    <a href="{{url_for('editItem', item_id = item.id)}}" style="text-decoration: none">Edit</a>
+    <a href="{{url_for('deleteItem', item_id = item.id)}}" style="text-decoration: none">Delete</a>
+{% endif %}
